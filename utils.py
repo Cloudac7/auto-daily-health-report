@@ -1,9 +1,19 @@
 # -*- coding: utf-8 -*-
+import json
 import base64
 import random
 
 from Cryptodome.Cipher import AES
 from Cryptodome.Util.Padding import pad
+
+
+def load_config(conf_path='config.json'):
+    try:
+        with open(conf_path, 'r') as f:
+            config = json.load(f)
+    except FileNotFoundError:
+        config = {}
+    return config
 
 
 def get_wrapped_url(url, webvpn=False):

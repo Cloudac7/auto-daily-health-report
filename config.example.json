@@ -1,0 +1,11 @@
+{
+    "xmu_username": "统一身份认证用户名",
+    "xmu_password": "统一身份认证密码",
+    "use_webvpn": false,
+    "vpn_username": "WebVPN 用户名",
+    "vpn_password": "WebVPN 密码",
+    "use_random": false,
+    "random_zone": 3600,
+    "webhook": "",
+    "secret": ""
+}

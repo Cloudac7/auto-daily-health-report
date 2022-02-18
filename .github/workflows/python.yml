@@ -26,8 +26,15 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
     - name: running check in
+      uses: zhangt2333/actions-easyconnect@main
+      with:
+        CLI_OPTS: ${{ secrets.CLI_OPTS }}
+        RETRY: 2
+        SLEEP_AFTER_LOGIN: 1
+        EXPECTED_EXIT_CODE: 66
       env:
-        xmu_username: ${{ secrets.xmu_username }}
-        xmu_password: ${{ secrets.xmu_password }}
-        server_chan_secret: ${{ secrets.server_chan_secret }}    # 如果你不需要通过 Server 酱 (http://sc.ftqq.com/) 进行打卡结果提醒，请注释此行
-      run: python workflow.py
+        REPORT_XMU_USERNAME: ${{ secrets.xmu_username }}
+        REPORT_XMU_PASSWORD: ${{ secrets.xmu_password }}
+        REPORT_SERVER_CHAN_SECRET: ${{ secrets.server_chan_secret }}    # 如果你不需要通过 Server 酱 (http://sc.ftqq.com/) 进行打卡结果提醒，请注释此行
+      run: |
+          python workflow.py
