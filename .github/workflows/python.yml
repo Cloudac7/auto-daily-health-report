@@ -6,8 +6,8 @@ name: XMU daily health report
 on:
   push:
     branches: [ $default-branch ]
-  schedule:
-    - cron: "35 0,2 * * *"             # 执行打卡任务的时间，默认是 8:05，需要将其转换成 UTC+0 时区（即比北京时间晚 8 小时），所以 8:05 => 0:05
+  #schedule:
+  #  - cron: "35 0,2 * * *"             # 执行打卡任务的时间，默认是 8:05，需要将其转换成 UTC+0 时区（即比北京时间晚 8 小时），所以 8:05 => 0:05
     # 请注意，由于本程序需要根据日期字符串获取每日的打卡表单，而 GitHub Action 的服务器具有时差，因此如果上面的 Cron 填写在北京时间 8 点（UTC 时间 0 点）之前，会导致打卡失败，
   workflow_dispatch:
 
@@ -32,8 +32,9 @@ jobs:
         RETRY: 2
         SLEEP_AFTER_LOGIN: 1
         EXPECTED_EXIT_CODE: 66
+        SCRIPT: |
+          python workflow.py
+      envs:
         REPORT_XMU_USERNAME: ${{ secrets.xmu_username }}
         REPORT_XMU_PASSWORD: ${{ secrets.xmu_password }}
         REPORT_SERVER_CHAN_SECRET: ${{ secrets.server_chan_secret }}    # 如果你不需要通过 Server 酱 (http://sc.ftqq.com/) 进行打卡结果提醒，请注释此行
-        SCRIPT: |
-          python workflow.py
