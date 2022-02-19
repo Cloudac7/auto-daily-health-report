@@ -111,8 +111,8 @@ try:
     today_log, status = check_recent(username, password)
     if status == 0 and today_log["today"]:
         print("Already reported today :)")
-        success_info = "检测到打卡成功信息, 当前连续打卡" + str(today_log["days"]) + "天, 健康码为" + str(today_log["color"]) + "码!"
-        report_with(True, success=success_info, type=report_type)
+        # success_info = "检测到打卡成功信息, 当前连续打卡" + str(today_log["days"]) + "天, 健康码为" + str(today_log["color"]) + "码!"
+        # report_with(True, success=success_info, type=report_type)
         sys.exit(0)
 
     random_zone = settings.get('random_zone', 0)
