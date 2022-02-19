@@ -106,9 +106,13 @@ except KeyError:
     sys.exit(1)
 
 try:
+    report_type = settings.get('report_type', None)
+
     today_log, status = check_recent(username, password)
     if status == 0 and today_log["today"]:
         print("Already reported today :)")
+        success_info = "检测到打卡成功信息, 当前连续打卡" + str(today_log["days"]) + "天, 健康码为" + str(today_log["color"]) + "码!"
+        report_with(True, success=success_info, type=report_type)
         sys.exit(0)
 
     random_zone = settings.get('random_zone', 0)
@@ -119,7 +123,7 @@ try:
     response, status = health_report(username, password)
     if status != 0:
         print("Report error, reason: " + response["reason"])
-        report_with(False, response["reason"])
+        report_with(False, response["reason"], type=report_type)
         sys.exit(1)
 
     today_log, status = check_recent(username, password)
@@ -127,19 +131,19 @@ try:
         if today_log["today"]:
             print("Automatically reported successfully!")
             success_info = "当前连续打卡" + str(today_log["days"]) + "天, 健康码为" + str(today_log["color"]) + "码!"
-            report_with(True, success=success_info)
+            report_with(True, success=success_info, type=report_type)
             sys.exit(0)
         else:
             print("Automatically reported failed.")
             reason = "System rejected the health-report request."
-            report_with(False, reason)
+            report_with(False, reason, type=report_type)
             sys.exit(1)
     else:
-        report_with(False, "Internal server error")
+        report_with(False, "Internal server error", type=report_type)
         sys.exit(1)
 
 except Exception as e:
     reason = "Error occurred while sending the report request."
     print(reason, e)
-    report_with(False, reason)
+    report_with(False, reason, type=report_type)
     sys.exit(1)
