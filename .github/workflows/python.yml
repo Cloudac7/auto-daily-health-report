@@ -33,7 +33,7 @@ jobs:
       uses: zhangt2333/actions-easyconnect@main
       with:
         CLI_OPTS: ${{ secrets.CLI_OPTS }}
-        RETRY: 2
+        RETRY: 5
         SLEEP_AFTER_LOGIN: 1
         EXPECTED_EXIT_CODE: 66
         SCRIPT: |
