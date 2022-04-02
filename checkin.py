@@ -24,8 +24,8 @@ def health_report(username,
     # create session
     session = requests.Session()
 
-    # if use_webvpn:
-    #     session = with_webvpn(session, http_header, vpn_username, vpn_password)
+    if use_webvpn:
+        session = with_webvpn(session, http_header, vpn_username, vpn_password)
 
     # bypass captcha
     # bypass_captcha(session, vpn_username, vpn_password)
@@ -34,7 +34,7 @@ def health_report(username,
     login(session, username, password, http_header, use_webvpn=use_webvpn)
 
     # get form id
-    now_url = get_wrapped_url("https://xmuxg.xmu.edu.cn/api/app/214/business/now", use_webvpn)
+    now_url = get_wrapped_url("https://xmuxg.xmu.edu.cn/api/app/214/business/now?getFirst=true", use_webvpn)
     resp = None
     form_id = None
     try:
