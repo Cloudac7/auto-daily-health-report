@@ -98,8 +98,8 @@ try:
     username = settings.xmu_username
     password = settings.xmu_password
     if use_vpn:
-        webvpn_username = settings.webvpn_username
-        webvpn_password = settings.webvpn_password
+        webvpn_username = settings.vpn_username
+        webvpn_password = settings.vpn_password
 except KeyError:
     reason = "You must provide a valid username & password and VPN account to log in xmuxg.xmu.edu.cn!"
     print(reason)
