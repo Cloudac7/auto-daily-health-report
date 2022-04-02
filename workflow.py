@@ -98,8 +98,8 @@ try:
     username = settings.xmu_username
     password = settings.xmu_password
     if use_vpn:
-        webvpn_username = settings.vpn_username
-        webvpn_password = settings.vpn_password
+        webvpn_username = settings.get('vpn_username')
+        webvpn_password = settings.get('vpn_password')
 except KeyError:
     reason = "You must provide a valid username & password and VPN account to log in xmuxg.xmu.edu.cn!"
     print(reason)
@@ -121,24 +121,24 @@ try:
         random_time = random.randint(0, random_zone)
         print("Will report after %s seconds" % random_time)
         time.sleep(random_time)
-    response, status = health_report(username, password)
+    response, status = health_report(username, password, use_vpn, webvpn_username, webvpn_password)
     if status != 0:
         print("Report error, reason: " + response["reason"])
         report_with(False, response["reason"], type=report_type)
         sys.exit(1)
 
-    today_log, status = check_recent(username, password)
-    if status == 0:
-        if today_log["today"]:
-            print("Automatically reported successfully!")
-            success_info = "当前连续打卡" + str(today_log["days"]) + "天, 健康码为" + str(today_log["color"]) + "码!"
-            report_with(True, success=success_info, type=report_type)
-            sys.exit(0)
-        else:
-            print("Automatically reported failed.")
-            reason = "System rejected the health-report request."
-            report_with(False, reason, type=report_type)
-            sys.exit(1)
+    #today_log, status = check_recent(username, password, use_vpn, webvpn_username, webvpn_password)
+    #if status == 0:
+    #    if today_log["today"]:
+    #        print("Automatically reported successfully!")
+    #        success_info = "当前连续打卡" + str(today_log["days"]) + "天, 健康码为" + str(today_log["color"]) + "码!"
+    #        report_with(True, success=success_info, type=report_type)
+    #        sys.exit(0)
+    #    else:
+    #        print("Automatically reported failed.")
+    #        reason = "System rejected the health-report request."
+    #        report_with(False, reason, type=report_type)
+    #        sys.exit(1)
     else:
         report_with(False, "Internal server error", type=report_type)
         sys.exit(1)
