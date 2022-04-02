@@ -126,6 +126,7 @@ try:
         print("Report error, reason: " + response["reason"])
         report_with(False, response["reason"], type=report_type)
         sys.exit(1)
+    report_with(True, success=response['info'], type=report_type)
 
     #today_log, status = check_recent(username, password, use_vpn, webvpn_username, webvpn_password)
     #if status == 0:
@@ -139,9 +140,9 @@ try:
     #        reason = "System rejected the health-report request."
     #        report_with(False, reason, type=report_type)
     #        sys.exit(1)
-    else:
-        report_with(False, "Internal server error", type=report_type)
-        sys.exit(1)
+    #else:
+    #    report_with(False, "Internal server error", type=report_type)
+    #    sys.exit(1)
 
 except Exception as e:
     reason = "Error occurred while sending the report request."
