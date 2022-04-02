@@ -29,7 +29,7 @@
 
 ![image.png](https://i.loli.net/2020/09/11/aLQZ75iVsu3EIF9.png)
 
-点击 "New Secret"，创建两个环境变量 `xmu_username` ，`xmu_password`，值分别设置为你的厦门大学学工号、统一身份认证密码，如下图所示。
+点击 "New Secret"，创建环境变量 `xmu_username` ，`xmu_password`，`vpn_username`，`vpn_password`，值分别设置为你的厦门大学学工号、统一身份认证密码、VPN用户名、VPN密码，如下图所示。
 
 ![image.png](https://i.loli.net/2020/09/11/smhU6nZXy2IWbGO.png)
 
@@ -52,6 +52,8 @@
 ![image.png](https://i.loli.net/2020/09/11/hXLs3NuwPnqxCQ1.png)
 
 如果看到了绿色的勾就证明设置成功，接下来只要交给 GitHub 让它每天自动帮我们解决打卡就行了。
+
+注意Github Actions默认包含了一个3600s内的随机延迟，可以在定时运行后3600s内随机时间点正式启动打卡。如不需要可以取消注释。
 
 ### Step 4. 联动其他软件获取打卡提醒（可选）
 
@@ -79,6 +81,33 @@
 
 #### 4.2 钉钉
 
+> 由于修改者使用的是钉钉，故本fork内的workflow注释了server chan的部分，默认开启的是钉钉，请注意甄别。
+
 钉钉本身也支持接收Webhook信息，因此这里在原Repo的基础上增加了钉钉打卡的支持。
+
+首先你需要配置钉钉Webhook机器人，详情请参考[官方教程](https://open.dingtalk.com/document/group/custom-robot-access)。
+
+“添加到群组”可以选择一个群，或者干脆设置为“工作通知”，后者相当于私信。
+
+注意请勾选安全设置中的“加签”，并保管好生成的密钥。后续步骤中会需要填写。
+
+然后点击“完成”得到Webhook服务器地址，注意请保管好不要泄露，后续步骤中也需要填写。
+
+请参考`.github/workflows/python.yml`的配置，注意如需使用钉钉打卡，请确保以下两行处于注释状态：
+
+```yaml
+        # REPORT_REPORT_TYPE: server_chan
+        # REPORT_SERVER_CHAN_SECRET: ${{ secrets.server_chan_secret }}
+```
+
+取消以下三行的注释：
+
+```yaml
+        REPORT_REPORT_TYPE: dingtalk
+        REPORT_DINGTALK_WEBHOOK: ${{ secrets.dingtalk_webhook }}
+        REPORT_DINGTALK_SECRET: ${{ secrets.dingtalk_secret }}
+```
+
+然后参照 Step 2 在 GitHub 中添加名为 `dingtalk_webhook` 和 `dingtalk_secret` 的环境变量，**分别**填入上文保存的Webhook服务器地址和生成的密钥。
 
 ## EOF

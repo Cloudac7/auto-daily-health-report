@@ -34,6 +34,10 @@
 
 ## 更新日志
 
+> 2022/04/02 对Github Workflow进行修改，支持通过WebVPN打卡，以免在家办公期间EC出现频繁的异地登陆。暂时删除了频繁失效的检验机制。
+>
+> 2022/02/19 重构Workflow、App等处代码，通过使用Dynaconf，同时支持本地配置文件和环境变量的写法。<s>在Workflow中使用EasyConnect VPN替换了默认配置以免被屏蔽。</s>
+>
 > 2021/10/19 使用`pycryptodomex`替换了使用ExecJS调用CryptoJS进行ASE加密的逻辑, 并增加了Docker支持
 > 
 > <s>2021/6/25: 更新了反代验证，现在必须要设置 --vpn-username 和 --vpn-password 才可以使用本程序。  </s>
@@ -206,6 +210,34 @@ A: 那还是麻烦您每天自己打卡好了（无慈悲）。
 crontab auto-report.cron
 ```
 
+当然你也可以在本地使用Workflow打卡以获得更多功能支持（例如随机延迟）。
+
+首先，注意到项目目录下的`config.example.json`，修改后缀去掉`example`，并修改其中的信息。以下对配置信息进行说明：
+
+```json
+{
+    "xmu_username": "统一身份认证用户名",
+    "xmu_password": "统一身份认证密码",
+    "use_webvpn": false,
+    "vpn_username": "WebVPN 用户名",
+    "vpn_password": "WebVPN 密码",
+    "use_random": false,
+    "random_zone": 3600,
+    "report_type": "dingtalk",
+    "dingtalk_webhook": "",
+    "dingtalk_secret": ""
+}
+```
+
+其中`xmu_username`和`xmu_password`表示你的统一身份认证用户名（学号）和密码，`vpn_username`和`vpn_password`表示WebVPN的用户名（学号）和密码。`use_random`表示开启随机延迟，如为`true`，请设置`random_zone`为随机延迟的范围（单位：秒），例如3600表示在程序运行后1h内随机时间点打卡。
+
+`report_type`表示推送的类型，可以参考[Github Actions打卡的说明](assets/report-with-github-actions.md)对应设置。这里给出的选项适用于钉钉。
+
+编写Crontab规则如下：
+
+```
+30 7/24 * * * cd /path/to/ && /usr/bin/python /path/to/workflow.py
+```
 
 ## 许可证
 
