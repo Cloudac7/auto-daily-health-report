@@ -9,7 +9,7 @@ on:
 #  schedule:
 #    - cron: "05 0,2,4 * * *"             # 执行打卡任务的时间，默认是 8:05，需要将其转换成 UTC+0 时区（即比北京时间晚 8 小时），所以 8:05 => 0:05
     # 请注意，由于本程序需要根据日期字符串获取每日的打卡表单，而 GitHub Action 的服务器具有时差，因此如果上面的 Cron 填写在北京时间 8 点（UTC 时间 0 点）之前，会导致打卡失败，
-#  workflow_dispatch:
+  workflow_dispatch:
 
 jobs:
   checkin:
@@ -25,10 +25,10 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
-    - name: random sleep
-      uses: m3y/random-wait-action@v1
-      with:
-        max-wait-time: 3600
+#    - name: random sleep
+#      uses: m3y/random-wait-action@v1
+#      with:
+#        max-wait-time: 3600
     - name: running check in
       run: |
           python workflow.py
