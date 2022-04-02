@@ -35,6 +35,9 @@ jobs:
       env:
         REPORT_XMU_USERNAME: ${{ secrets.xmu_username }}
         REPORT_XMU_PASSWORD: ${{ secrets.xmu_password }}
+        REPORT_VPN_USERNAME: ${{ secrets.xmu_username }}
+        REPORT_VPN_PASSWORD: ${{ secrets.xmu_password }}
+        REPORT_USE_VPN: true
         REPORT_REPORT_TYPE: dingtalk # 选择打卡提醒的方式，默认为 Server 酱，可选钉钉
         # REPORT_SERVER_CHAN_SECRET: ${{ secrets.server_chan_secret }}    # 如果你不需要通过 Server 酱 (http://sc.ftqq.com/) 进行打卡结果提醒，请注释此行
         REPORT_DINGTALK_WEBHOOK: ${{ secrets.dingtalk_webhook }}
