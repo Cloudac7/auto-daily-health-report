@@ -30,8 +30,8 @@ def check_recent(username,
     # create session
     session = requests.Session()
 
-    # if use_webvpn:
-    #     session = with_webvpn(session, http_header, vpn_username, vpn_password)
+    if use_webvpn:
+        session = with_webvpn(session, http_header, vpn_username, vpn_password)
 
     # bypass captcha
     # bypass_captcha(session, vpn_username, vpn_password)
@@ -53,6 +53,7 @@ def check_recent(username,
     # get recent checkin status
     recent_url = get_wrapped_url("https://xmuxg.xmu.edu.cn/api/formEngine/business/%s/myFormInstance" % str(business_id), use_webvpn)
     resp = session.get(recent_url, headers=http_header).text
+    print(resp)
     res_json = json.loads(resp)
     form_data = res_json['data']['formData']
     owner = res_json['data']['owner']['name']

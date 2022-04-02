@@ -93,12 +93,13 @@ def report_with_dingtalk(flag, reason="", success=""):
         print("Cannot report with DingTalk: unknown error")
         return
 
-
+use_vpn = settings.get('use_vpn', False)
 try:
     username = settings.xmu_username
     password = settings.xmu_password
-#     webvpn_username = os.environ["webvpn_username"]
-#     webvpn_password = os.environ["webvpn_password"]
+    if use_vpn:
+        webvpn_username = os.environ["webvpn_username"]
+        webvpn_password = os.environ["webvpn_password"]
 except KeyError:
     reason = "You must provide a valid username & password and VPN account to log in xmuxg.xmu.edu.cn!"
     print(reason)
@@ -108,12 +109,12 @@ except KeyError:
 try:
     report_type = settings.get('report_type', None)
 
-    today_log, status = check_recent(username, password)
-    if status == 0 and today_log["today"]:
-        print("Already reported today :)")
-        # success_info = "检测到打卡成功信息, 当前连续打卡" + str(today_log["days"]) + "天, 健康码为" + str(today_log["color"]) + "码!"
-        # report_with(True, success=success_info, type=report_type)
-        sys.exit(0)
+    #today_log, status = check_recent(username, password)
+    #if status == 0 and today_log["today"]:
+    #    print("Already reported today :)")
+    #    # success_info = "检测到打卡成功信息, 当前连续打卡" + str(today_log["days"]) + "天, 健康码为" + str(today_log["color"]) + "码!"
+    #    # report_with(True, success=success_info, type=report_type)
+    #    sys.exit(0)
 
     random_zone = settings.get('random_zone', 0)
     if random_zone != 0:
