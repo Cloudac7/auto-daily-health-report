@@ -6,6 +6,7 @@
     "vpn_password": "WebVPN 密码",
     "use_random": false,
     "random_zone": 3600,
-    "webhook": "",
-    "secret": ""
+    "report_type": "dingtalk",
+    "dingtalk_webhook": "",
+    "dingtalk_secret": ""
 }
