@@ -30,8 +30,11 @@ jobs:
       with:
         max-wait-time: 3600
     - name: running check in
-      run: |
-          python workflow.py
+      uses: nick-fields/retry@v2
+      with:
+        timeout_minutes: 30
+        max_attempts: 10
+        command: python workflow.py
       env:
         REPORT_XMU_USERNAME: ${{ secrets.xmu_username }}
         REPORT_XMU_PASSWORD: ${{ secrets.xmu_password }}
