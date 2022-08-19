@@ -80,6 +80,8 @@ def health_report(username,
             value['stringValue'] = v['value']['stringValue']
         elif v['value']['dataType'] == 'ADDRESS_VALUE':
             value['addressValue'] = v['value']['addressValue']
+        elif v['value']['dataType'] == 'DATE':
+            value['dateValue'] = v['value']['dateValue']
 
         value_list[name] = {
             'hide': hide,
