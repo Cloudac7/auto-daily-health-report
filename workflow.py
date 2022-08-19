@@ -68,7 +68,7 @@ def report_with_dingtalk(flag, reason="", success=""):
         sign = urllib.parse.quote_plus(base64.b64encode(hmac_code))
         webhook_signed = settings.dingtalk_webhook + '&timestamp=' + timestamp + '&sign=' + sign
         if flag:
-            result_title = "打卡成功提醒"
+            result_title = "打卡成功提醒，请更新核酸检测时间"
             result_text = "今日打卡操作已成功!" + success
         else:
             result_title = "打卡失败提醒"
