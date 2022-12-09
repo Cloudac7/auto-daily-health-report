@@ -1,7 +1,9 @@
 <!-- omit in toc -->
 # Auto Daily Health Report
 
-用最省力的方式完成 [厦门大学·每日健康打卡 (Daily Health Report)](https://xmuxg.xmu.edu.cn/app/214) 。
+我们正式迈向结束疫情生活的道路！
+
+<del>用最省力的方式完成 [厦门大学·每日健康打卡 (Daily Health Report)](https://xmuxg.xmu.edu.cn/app/214) 。
 
 > 由于原项目已迁移到 Rust实现， Python 实现不再维护。因此本项目将继续提供对 Python 版本的支持，并将重构部分代码，根据实际使用情况适当增加功能。
 > 这里特别感谢原作者 [@kirainmoe](https://github.com/kirainmoe) 的贡献。
@@ -242,3 +244,4 @@ crontab auto-report.cron
 ## 许可证
 
 `auto-daily-health-report` is a part of `project-ami`, and it is MIT Licensed.
+</del>
